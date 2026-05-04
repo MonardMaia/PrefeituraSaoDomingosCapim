@@ -236,5 +236,5 @@ app.delete("/visitantes/:id", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log("🚀 API rodando");
+    console.log(`🚀 API rodando  com sucesso na porta ${PORT}`);
 });
