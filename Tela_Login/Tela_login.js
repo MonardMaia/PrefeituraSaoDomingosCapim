@@ -50,3 +50,7 @@ function mostrarMensagem(event, tipo) {
         alerta.classList.remove("show");
     }, 5000);
 }
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../Tela_Login/Tela_Login.html"));
+});
