@@ -11,7 +11,7 @@ app.use(express.json());
 ============================== */
 const config = {
     user: "PREFEITURA",
-    password: process.env.DB_PASSWORD || "Brendo27@",
+    password: process.env.DB_PASS || "Brendo27@",
     server: "localhost",
     database: "PREFEITURA",
     port: 1433,
