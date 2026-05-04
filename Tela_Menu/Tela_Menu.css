@@ -1,0 +1,91 @@
+/* RESET */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #4CAF00; /* verde principal */
+}
+
+/* FAIXA SUPERIOR (verde/azul) */
+body::before {
+    content: "";
+    display: block;
+    height: 15px;
+    background: linear-gradient(to right,#B0FB06, #0b7d3b, #104591, #00ABF7,#E89B03);
+}
+
+/* TOPO (LOGO) */
+.logo {
+    display: block;
+    margin: 10px auto;
+    width: 550px;
+    margin: 10px auto;
+}
+
+.box::before {
+    content: "";
+    display: block;
+    background: white;
+    height: 200px;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+/* CONTAINER CENTRAL */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 🔥 evita subir a logo */
+}
+
+/* CAIXA */
+.box {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* BOTÕES */
+.btn-acessar {
+    display: block;
+    width: 280px;
+    margin: 15px auto;
+    padding: 12px;
+
+    background: #e6e6e6;
+    border: none;
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+/* HOVER */
+.btn-acessar:hover {
+    background: #d1d1d1;
+}
+
+/* RODAPÉ DECORATIVO */
+.rodape {
+    position: fixed;/* Mantém o rodapé fixo na tela, mesmo ao rolar a página */
+
+    bottom: 0;/* Posiciona o rodapé colado na parte inferior da tela */
+
+    left: 0;/* Alinha o rodapé ao canto esquerdo */
+
+    width: 105%;/* Faz o rodapé ocupar toda a largura da tela */
+
+    height: 30px;/* Define a altura do rodapé ( pode cortar a imagem se for menor que o tamanho real dela) */
+
+    background: none;/* Remove qualquer cor ou imagem de fundo do rodapé */
+}
+
+.rodape img {
+    width: 1370px;/* Faz a imagem ocupar toda a largura do rodapé */
+
+    display: block;/* Remove espaços indesejados abaixo da imagem (comportamento padrão de img é inline) */
+}

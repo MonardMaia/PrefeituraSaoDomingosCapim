@@ -1,0 +1,148 @@
+/* RESET */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #4CAF00;
+}
+
+/* FAIXA SUPERIOR */
+body::before {
+    content: "";
+    display: block;
+    height: 15px;
+       background: linear-gradient(to right,#B0FB06, #0b7d3b, #104591, #00ABF7,#E89B03);
+
+}
+
+/* TOPO BRANCO */
+.topo {
+    background: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.logo {
+    width: 450px;
+}
+
+/* CONTAINER */
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: none;
+}
+
+/* BOX */
+.box {
+    width: 95%;
+    max-width: 1100%;
+    text-align: center;
+}
+
+/* TÍTULO */
+.titulo {
+    background: #66bb00;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+/* BUSCA */
+#buscar {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 4px;
+    margin-top: 10px;
+    text-align: center;
+    background: #e6e6e6;
+}
+
+/* TABELA */
+table {
+    width: 100%;
+    border-collapse: collapse; /* 🔥 melhor que separate */
+    margin-top: 10px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* CABEÇALHO */
+    th {
+    background: #2e7d32;
+    color: white;
+    padding: 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+/* LINHAS */
+td {
+    padding: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+}
+/*LINHAS ALTERNADAS*/
+tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+tr:hover {
+    background: #dcedc8;
+    transition: 0.2s;
+}
+
+td button {
+    width: 30px;
+    padding: 3px;
+    font-size: 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+/* editar */
+td button:first-child {
+    background: #2196f3;
+    color: white;
+}
+
+/* excluir */
+td button:last-child {
+    background: #f44336;
+    color: white;
+}
+
+button {
+    padding: 10px 30px;
+    border-radius: 6px;
+    border: none;
+    background: #e6e6e6;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+button:hover {
+    background: #d1d1d1;
+}
+
+/* RODAPÉ */
+.rodape {
+    width: 100%;/* Faz o rodapé ocupar toda a largura da tela */
+    margin-top: 5px;/* Define a altura do rodapé ( pode cortar a imagem se for menor que o tamanho real dela) */
+    height: 30px;/* Define a altura do rodapé ( pode cortar a imagem se for menor que o tamanho real dela) */
+    overflow: hidden;
+}
+
+.rodape img {
+    width: 100%;/* Faz a imagem ocupar toda a largura do rodapé */
+    height: auto;/* Mantém a proporção da imagem */
+    display: block;/* Remove espaços indesejados abaixo da imagem (comportamento padrão de img é inline) */
+}

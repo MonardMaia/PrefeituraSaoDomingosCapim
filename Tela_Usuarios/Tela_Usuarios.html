@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Usuários</title>
+    <link rel="stylesheet" href="Tela_Usuarios.css">
+</head>
+
+<body>
+    <div class="topo">
+    <img src="../Imagens/LogoPrefeituraSemFundo.png" class="logo">
+</div>
+<div>
+    <h2 class="titulo">Usuário</h2>
+</div>
+    <div class="container">
+        <div class="box">
+            <!-- BUSCA -->
+            <input type="text" id="buscar" placeholder="Buscar por nome..." onkeyup="filtrar()">
+
+            <!-- TABELA -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Contato</th>
+                        <th>Departamento</th>
+                        <th>Email</th>
+                        <th>Senha</th>
+                        <th>Perfil</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaUsuarios"></tbody>
+            </table>
+
+            <div class="botoes">
+                <button onclick="voltar()">Voltar</button>
+                <button onclick="cadastrar()">Cadastrar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="Tela_Usuarios.js"></script>
+</body>
+<footer>
+    <div class="rodape">
+        <img src="../Imagens/Rodape.jpeg">
+    </div>
+</footer>
+</html>

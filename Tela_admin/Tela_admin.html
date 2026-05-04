@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Tela Admin</title>
+    <link rel="stylesheet" href="../Layout/Layout.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="box">
+
+        <img src="../Imagens/LogoPrefeituraSemFundo.png" class="logo">
+
+        <h2>Tela de Cadastro de Usuários</h2>
+            <input type="text" id="buscar" placeholder="Buscar por nome..." onkeyup="filtrarUsuarios()">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Contato</th>
+                    <th>Setor</th>
+                    <th>Email</th>
+                    <th>Perfil</th>
+                    <th>Senha</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaUsuarios"></tbody>
+        </table>
+
+        <button onclick="voltar()">Voltar</button>
+        <button onclick="window.location.href='../Tela_Cadastro_Usuario/Tela_Cadastro_Usuario.html'">+ Novo Usuário</button>
+
+    </div>
+</div>
+
+<script src="Tela_Admin.js"></script>
+</body>
+</html>

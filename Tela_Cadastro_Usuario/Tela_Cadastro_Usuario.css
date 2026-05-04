@@ -1,0 +1,113 @@
+/* RESET */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #4CAF00;
+}
+
+/* FAIXA SUPERIOR (igual da imagem) */
+body::before {
+    content: "";
+    display: block;
+    height: 15px;
+    background: linear-gradient(to right,#B0FB06, #0b7d3b, #104591, #00ABF7,#E89B03);
+}
+/* TOPO BRANCO */
+.topo {
+    background: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.logo {
+    width: 450px;
+}
+
+/* TÍTULO VERDE */
+.titulo {
+    background: #66bb00;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+/* CONTAINER */
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: none;
+}
+
+/* BOX */
+.box {
+    width: 600px;
+}
+
+/* FORM */
+.form-group {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+/* LABEL */
+label {
+    width: 170px;
+    color: white;
+    font-weight: bold;
+}
+
+/* INPUTS */
+input, select {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background: #e6e6e6;
+}
+
+/* BOTÕES */
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+button {
+    padding: 10px 30px;
+    border-radius: 6px;
+    border: none;
+    background: #e6e6e6;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #d1d1d1;
+}
+
+/* ERRO */
+.erro {
+    text-align: center;
+    color: #fa0404;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* RODAPÉ */
+.rodape {
+    width: 100%;/* Faz o rodapé ocupar toda a largura da tela */
+    margin-top: 5px;/* Define a altura do rodapé ( pode cortar a imagem se for menor que o tamanho real dela) */
+    height: 30px;/* Define a altura do rodapé ( pode cortar a imagem se for menor que o tamanho real dela) */
+    overflow: hidden;
+}
+
+.rodape img {
+    width: 100%;/* Faz a imagem ocupar toda a largura do rodapé */
+    height: auto;/* Mantém a proporção da imagem */
+    display: block;/* Remove espaços indesejados abaixo da imagem (comportamento padrão de img é inline) */
+}
