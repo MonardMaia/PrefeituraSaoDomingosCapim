@@ -244,3 +244,11 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 API rodando  com sucesso na porta ${PORT}`);
 });
+
+app.get("/", (req, res) => {
+    res.send("API da Prefeitura está online 🚀");
+});
+
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, "../")));
