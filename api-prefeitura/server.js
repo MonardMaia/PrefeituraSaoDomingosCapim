@@ -4,12 +4,14 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../")));
-/* ==============================
-   CONFIGURAÇÃO DO SQL SERVER
-============================== */
+
+// ==============================
+// CONFIG SQL
+// ==============================
 const config = {
     user: "PREFEITURA",
     password: process.env.DB_PASS || "Brendo27@",
@@ -21,234 +23,246 @@ const config = {
         trustServerCertificate: true
     }
 };
-// ROTA PARA SERVIR A PÁGINA DE LOGIN
+
+// ==============================
+// CONEXÃO
+// ==============================
+sql.connect(config)
+    .then(() => console.log("✅ SQL Server conectado"))
+    .catch(err => console.error("❌ Erro SQL:", err));
+
+// ==============================
+// TESTE
+// ==============================
+app.get("/teste-banco", async (req, res) => {
+    const result = await sql.query("SELECT 1 AS teste");
+    res.json(result.recordset);
+});
+//
 app.get("/", (req, res) => {
+    res.redirect("/login");
+});
+
+app.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, "../Tela_Login/Tela_Login.html"));
 });
+// ==============================
+// USUÁRIOS
+// ==============================
 
-
-/* ==============================
-   CONEXÃO GLOBAL (1x só)
-============================== */
-sql.connect(config)
-    .then(() => {
-        console.log("✅ Conectado ao SQL Server!");
-    })
-    .catch(err => {
-        console.error("❌ Erro na conexão:", err);
-    });
-
-/* ==============================
-   ROTA TESTE
-============================== */
-app.get("/teste-banco", async (req, res) => {
-    try {
-        const result = await sql.query("SELECT 1 AS teste");
-        res.json(result.recordset);
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
-
-// ROTA PARA CADASTRAR USUÁRIO
+// CREATE
 app.post("/usuarios", async (req, res) => {
     try {
         const { nome, cpf, contato, departamento, email, senha, perfil } = req.body;
 
+        // 🔍 verificar duplicidade
+        const existe = await sql.query`
+            SELECT * FROM dbo.CADASTROUSUARIO 
+            WHERE cpf = ${cpf} OR email = ${email}
+        `;
+
+        if (existe.recordset.length > 0) {
+            return res.status(400).json({
+                erro: "Já existe um usuário com esse CPF ou Email!"
+            });
+        }
+
         await sql.query`
-            INSERT INTO dbo.CADASTROUSUARIO (nome, cpf, contato, departamento, email, senha, perfil)
+            INSERT INTO dbo.CADASTROUSUARIO 
+            (nome, cpf, contato, departamento, email, senha, perfil)
             VALUES (${nome}, ${cpf}, ${contato}, ${departamento}, ${email}, ${senha}, ${perfil})
         `;
 
-        res.send("Usuário cadastrado com sucesso!");
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Erro ao salvar usuário");
-    }
-});
-
-// ROTA DE LOGIN
-app.post("/login", async (req, res) => {
-    try {
-        const { cpf, senha } = req.body;
-
-        const result = await sql.query`
-            SELECT * FROM dbo.CADASTROUSUARIO WHERE cpf = ${cpf} AND senha = ${senha}
-        `;
-
-        if (result.recordset.length > 0) {
-            res.json(result.recordset[0]);
-        } else {
-            res.status(401).send("CPF ou senha inválidos");
-        }
+        res.json({ mensagem: "Usuário cadastrado com sucesso!" });
 
     } catch (err) {
         console.error(err);
-        res.status(500).send("Erro no login");
+        res.status(500).json({ erro: "Erro ao cadastrar usuário" });
     }
 });
 
-/* ==============================
-   LISTAR USUÁRIOS
-============================== */
+// READ
 app.get("/usuarios", async (req, res) => {
-    try {
-        await sql.connect(config);
-
-        const result = await sql.query(`
-            SELECT id, nome, cpf, contato, departamento, email, perfil 
-            FROM dbo.CADASTROUSUARIO
-        `);
-
-        res.json(result.recordset);
-
-    } catch (err) {
-        console.error("ERRO REAL:", err); 
-        res.status(500).send("Erro ao buscar usuários");
-    }
+    const result = await sql.query(`
+        SELECT id, nome, cpf, contato, departamento, email, perfil
+        FROM dbo.CADASTROUSUARIO
+    `);
+    res.json(result.recordset);
 });
 
-/* ==============================
-   EXCLUIR USUÁRIO
-============================== */
-app.delete("/usuarios/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        await sql.query`DELETE FROM dbo.CADASTROUSUARIO WHERE id = ${id}`;
-
-        res.send("Usuário excluído com sucesso!");
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Erro ao excluir usuário");
-    }
-});
-
-/* ==============================
-   EDITAR USUÁRIO
-============================== */
+// UPDATE
 app.put("/usuarios/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { nome, cpf, contato, departamento, email, perfil } = req.body;
+    const { id } = req.params;
+    const { nome, cpf, contato, departamento, email, perfil } = req.body;
 
-        await sql.query`
-            UPDATE Usuarios SET
-                nome = ${nome},
-                cpf = ${cpf},
-                contato = ${contato},
-                departamento = ${departamento},
-                email = ${email},
-                perfil = ${perfil}
-            WHERE id = ${id}
-        `;
+    await sql.query`
+        UPDATE dbo.CADASTROUSUARIO SET
+            nome = ${nome},
+            cpf = ${cpf},
+            contato = ${contato},
+            departamento = ${departamento},
+            email = ${email},
+            perfil = ${perfil}
+        WHERE id = ${id}
+    `;
 
-        res.send("Usuário atualizado com sucesso!");
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Erro ao atualizar usuário");
+    res.send("Usuário atualizado!");
+});
+
+// DELETE
+app.delete("/usuarios/:id", async (req, res) => {
+    const { id } = req.params;
+
+    await sql.query`
+        DELETE FROM dbo.CADASTROUSUARIO WHERE id = ${id}
+    `;
+
+    res.send("Usuário excluído!");
+});
+
+// ==============================
+// LOGIN
+// ==============================
+app.post("/login", async (req, res) => {
+    const { cpf, senha } = req.body;
+
+    const result = await sql.query`
+        SELECT * FROM dbo.CADASTROUSUARIO 
+        WHERE cpf = ${cpf} AND senha = ${senha}
+    `;
+
+    if (result.recordset.length > 0) {
+        res.json(result.recordset[0]);
+    } else {
+        res.status(401).json({ erro: "CPF ou senha inválidos" });
     }
 });
-// ROTA PARA CADASTRAR ATENDIMENTO
+
+// ==============================
+// ATENDIMENTOS
+// ==============================
+
+// CREATE (AGORA EXISTE!)
 app.post("/visitantes", async (req, res) => {
     try {
-        await sql.connect(config);
+        let { nome, cpf, contato, regiao, nascimento, atendimento, assunto, departamento,status} = req.body;
 
-        const { nome, cpf, contato, regiao, nascimento, atendimento, assunto, departamento } = req.body;
+        // 🔧 PADRONIZAÇÃO (evita erro de comparação)
+        const cpfLimpo = cpf.replace(/\D/g, "");
+        const departamentoLimpo = departamento.trim().toLowerCase();
+        const dataFormatada = atendimento.split("T")[0]; // yyyy-mm-dd
 
-        await sql.query`
-            INSERT INTO dbo.ATENDIMENTOVISITANTES
-            (nome, cpf, contato, regiao, nascimento, atendimento, assunto, departamento)
-            VALUES
-            (${nome}, ${cpf}, ${contato}, ${regiao}, ${nascimento}, ${atendimento}, ${assunto}, ${departamento})
+        // 🔍 VALIDAÇÃO (CPF + DATA + DEPARTAMENTO)
+        const existe = await sql.query`
+            SELECT 1 FROM dbo.ATENDIMENTOVISITANTES
+            WHERE REPLACE(cpf, '.', '') = ${cpfLimpo}
+            AND LTRIM(RTRIM(LOWER(departamento))) = ${departamentoLimpo}
+            AND CONVERT(date, atendimento) = ${dataFormatada}
         `;
 
-        res.send("Atendimento salvo com sucesso!");
+        if (existe.recordset.length > 0) {
+            return res.status(400).json({
+                erro: "Já existe atendimento para esse CPF neste departamento nesta data!"
+            });
+        }
 
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Erro ao salvar atendimento");
-    }
-});
-// ROTA PARA LISTAR ATENDIMENTOS
-// ✅ ROTA PARA LISTAR ATENDIMENTOS (HISTÓRICO)
-app.get("/visitantes", async (req, res) => {
-    try {
-        const result = await sql.query(`
-            SELECT 
-                id,
-                nome,
-                cpf,
-                contato,
-                regiao,
-                assunto,
-                departamento,
-                atendimento
-            FROM dbo.ATENDIMENTOVISITANTES
-            ORDER BY atendimento DESC
-        `);
-
-        res.json(result.recordset);
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Erro ao buscar histórico");
-    }
-});
-// ROTA PARA EDITAR ATENDIMENTO
-app.put("/visitantes/:id", async (req, res) => {
-    try {
-        await sql.connect(config);
-
-        const { id } = req.params;
-        const { nome, contato, regiao, assunto, departamento } = req.body;
-
+        // ✅ SALVAR
         await sql.query`
-            UPDATE VISITANTES SET
-                nome = ${nome},
-                contato = ${contato},
-                regiao = ${regiao},
-                assunto = ${assunto},
-                departamento = ${departamento}
+            INSERT INTO dbo.ATENDIMENTOVISITANTES
+            (nome, cpf, contato, regiao, nascimento, atendimento, assunto, departamento, status)
+            VALUES
+            (${nome}, ${cpfLimpo}, ${contato}, ${regiao}, ${nascimento}, ${atendimento}, ${assunto}, ${departamentoLimpo}, ${status || "iniciado"})
+        `;
+
+        res.json({ mensagem: "Atendimento cadastrado com sucesso!" });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ erro: "Erro ao salvar atendimento" });
+    }
+});
+
+// READ
+app.get("/visitantes", async (req, res) => {
+    const result = await sql.query(`
+        SELECT * FROM dbo.ATENDIMENTOVISITANTES
+        ORDER BY atendimento DESC
+    `);
+    res.json(result.recordset);
+});
+
+// UPDATE
+app.put("/visitantes/:id", async (req, res) => {
+    const { id } = req.params;
+    const { nome, contato, regiao, assunto, departamento, status } = req.body;
+
+    await sql.query`
+        UPDATE dbo.ATENDIMENTOVISITANTES SET
+            nome = ${nome},
+            contato = ${contato},
+            regiao = ${regiao},
+            assunto = ${assunto},
+            departamento = ${departamento}
+        WHERE id = ${id}
+    `;
+
+    res.send("Atendimento atualizado!");
+});
+
+app.put("/visitantes/:id/status", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status, perfil } = req.body;
+
+        // 🔎 BUSCAR STATUS ATUAL NO BANCO
+        const result = await sql.query`
+            SELECT status FROM dbo.ATENDIMENTOVISITANTES WHERE id = ${id}
+        `;
+
+        if (result.recordset.length === 0) {
+            return res.status(404).json({ erro: "Registro não encontrado" });
+        }
+
+        const statusAtual = result.recordset[0].status;
+
+        // 🔐 👉 COLOQUE AQUI
+        if (statusAtual === "Concluido" && perfil !== "admin") {
+            return res.status(403).json({
+                erro: "Sem permissão para alterar atendimento concluído"
+            });
+        }
+
+        // ✅ ATUALIZA NORMAL
+        await sql.query`
+            UPDATE dbo.ATENDIMENTOVISITANTES
+            SET status = ${status}
             WHERE id = ${id}
         `;
 
-        res.send("Atendimento atualizado!");
+        res.json({ mensagem: "Status atualizado!" });
 
     } catch (err) {
-        res.status(500).send("Erro ao atualizar");
+        console.error(err);
+        res.status(500).json({ erro: "Erro ao atualizar status" });
     }
 });
 
-// ROTA PARA EXCLUIR ATENDIMENTO
+// DELETE
 app.delete("/visitantes/:id", async (req, res) => {
-    try {
-        await sql.connect(config);
+    const { id } = req.params;
 
-        const { id } = req.params;
+    await sql.query`
+        DELETE FROM dbo.ATENDIMENTOVISITANTES WHERE id = ${id}
+    `;
 
-        await sql.query`DELETE FROM VISITANTES WHERE id = ${id}`;
-
-        res.send("Atendimento excluído!");
-
-    } catch (err) {
-        res.status(500).send("Erro ao excluir");
-    }
+    res.send("Atendimento excluído!");
 });
 
-/* ==============================
-   SERVIDOR API
-============================== */
+// ==============================
+// SERVIDOR
+// ==============================
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log(`🚀 API rodando  com sucesso na porta ${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+    console.log("🚀 Servidor rodando na porta " + PORT);
 });
-
-app.get("/", (req, res) => {
-    res.send("API da Prefeitura está online 🚀");
-});
-
-const path = require("path");
-
-app.use(express.static(path.join(__dirname, "../")));
