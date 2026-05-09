@@ -8,7 +8,7 @@ async function acessar() {
     }
 
     try {
-        const resposta = await fetch("http://localhost:3000/login", {
+        const resposta = await fetch("http://192.168.1.108:3000/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -41,9 +41,9 @@ function mostrarMensagem(event, tipo) {
     event.preventDefault();
     const alerta = document.getElementById("alerta");
     if (tipo == "senha") {
-        alerta.innerHTML = "🔑 <strong>Recuperação de senha:</strong><br>Entre em contato com TI:<br>Prefeitura.Capim@gmail.com";
+        alerta.innerHTML = "🔑 <strong>Recuperação de senha:</strong><br>Entre em contato com TI:<br>suporteticapim2026@gmail.com";
     } else if (tipo == "cadastro") {
-        alerta.innerHTML = "📧 <strong>Solicitação de cadastro:</strong><br>Enviar e-mail para TI:<br>Prefeitura.Capim@gmail.com";
+        alerta.innerHTML = "📧 <strong>Solicitação de cadastro:</strong><br>Enviar e-mail para TI:<br>suporteticapim2026@gmail.com";
     }
     alerta.classList.add("show");
     setTimeout(() => {

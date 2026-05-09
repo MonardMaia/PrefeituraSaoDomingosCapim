@@ -16,7 +16,7 @@ window.onload = async function () {
 
 // CARREGAR USUÁRIOS
 async function carregarUsuarios() {
-    const resposta = await fetch("http://localhost:3000/usuarios");
+    const resposta = await fetch("http://192.168.2.212:3000/usuarios");
     listaUsuarios = await resposta.json();
 
     renderizarTabela(listaUsuarios);
@@ -61,7 +61,7 @@ async function excluir(id) {
 
     if (!confirm("Deseja excluir este usuário?")) return;
 
-    await fetch(`http://localhost:3000/usuarios/${id}`, {
+    await fetch(`http://192.168.2.212:3000/usuarios/${id}`, {
         method: "DELETE"
     });
 
@@ -89,7 +89,7 @@ function editar(id) {
 //  ATUALIZAR
 async function atualizarUsuario(id, dados) {
 
-    await fetch(`http://localhost:3000/usuarios/${id}`, {
+    await fetch(`http://192.168.2.212:3000/usuarios/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"

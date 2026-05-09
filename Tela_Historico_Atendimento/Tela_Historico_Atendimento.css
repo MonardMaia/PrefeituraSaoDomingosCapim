@@ -146,3 +146,44 @@ button:hover {
     height: auto;/* Mantém a proporção da imagem */
     display: block;/* Remove espaços indesejados abaixo da imagem (comportamento padrão de img é inline) */
 }
+
+select {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover */
+select:hover {
+    border-color: #007bff;
+    background-color: #eef6ff;
+}
+
+/* Foco */
+select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+.status-iniciado {
+    background-color: #e3f2fd;
+    color: #0d6efd;
+    border: 1px solid #0d6efd;
+}
+
+.status-parado {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+}
+
+.status-concluido {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #28a745;
+}

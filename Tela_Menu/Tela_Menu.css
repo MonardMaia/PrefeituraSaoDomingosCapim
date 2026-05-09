@@ -72,20 +72,15 @@ body::before {
 /* RODAPÉ DECORATIVO */
 .rodape {
     position: fixed;/* Mantém o rodapé fixo na tela, mesmo ao rolar a página */
-
     bottom: 0;/* Posiciona o rodapé colado na parte inferior da tela */
-
     left: 0;/* Alinha o rodapé ao canto esquerdo */
-
     width: 105%;/* Faz o rodapé ocupar toda a largura da tela */
-
     height: 30px;/* Define a altura do rodapé ( pode cortar a imagem se for menor que o tamanho real dela) */
-
     background: none;/* Remove qualquer cor ou imagem de fundo do rodapé */
 }
 
 .rodape img {
-    width: 1370px;/* Faz a imagem ocupar toda a largura do rodapé */
-
+    width: 100%;/* Faz a imagem ocupar toda a largura do rodapé */
+    height: auto;
     display: block;/* Remove espaços indesejados abaixo da imagem (comportamento padrão de img é inline) */
 }

@@ -1,6 +1,6 @@
 async function salvar() {
 
-    mostrarErro(""); // limpa erro
+    mostrarErro("");
 
     document.getElementById("senha").style.border = "none";
     document.getElementById("confirmacaoSenha").style.border = "none";
@@ -41,30 +41,29 @@ async function salvar() {
         return;
     }
 
-    console.log("Dados enviados:", dados);
+    try {
+        const resposta = await fetch("http://192.168.1.108:3000/usuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        });
 
-   try {
-    const resposta = await fetch("http://localhost:3000/usuarios", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(dados)
-    });
+        const data = await resposta.json();
 
-    if (!resposta.ok) {
-    const erro = await resposta.text();
-    mostrarErro(erro);
-    return;
-}
+        if (!resposta.ok) {
+            mostrarErro(data.erro || "Erro ao cadastrar usuário");
+            return;
+        }
 
-    window.location.href = "../Tela_Login/Tela_Login.html";
+        alert("✅ Usuário cadastrado com sucesso!");
+        window.location.href = "../Tela_Login/Tela_Login.html";
 
-} catch (erro) {
-    console.error(erro);
-    mostrarErro("❌ Erro ao conectar com o servidor!");
-}
-
+    } catch (erro) {
+        console.error(erro);
+        mostrarErro("❌ Erro ao conectar com o servidor!");
+    }
 }
 function mostrarErro(msg) {
     document.getElementById("erro").innerText = msg;

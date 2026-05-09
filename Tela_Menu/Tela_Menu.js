@@ -1,9 +1,11 @@
-const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+document.addEventListener("DOMContentLoaded", function () {
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
 
-if (!usuario || usuario.perfil !== "admin") {
-    document.getElementById("btnCadastro").style.display = "none";
-}
-
+    if (usuario && usuario.perfil == "admin") {
+        document.getElementById("btnCadastro").style.display = "block";
+        document.getElementById("btnUsuarios").style.display = "block";
+    }
+});
 function Atendimento() {
     window.location.href = "/Tela_Atendimento_Visitantes/Tela_Atendimento_Visitantes.html";
 }

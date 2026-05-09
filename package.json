@@ -1,26 +1,5 @@
 {
-  "name": "projeto_site_prefeitura_odir",
-  "version": "1.0.0",
-  "description": "��#\u0000 \u0000P\u0000r\u0000e\u0000f\u0000e\u0000i\u0000t\u0000u\u0000r\u0000a\u0000S\u0000a\u0000o\u0000D\u0000o\u0000m\u0000i\u0000n\u0000g\u0000o\u0000s\u0000C\u0000a\u0000p\u0000i\u0000m\u0000\r\u0000 \u0000",
-  "main": "index.js",
- "scripts": {
-  "start": "node server.js"
-},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MonardMaia/PrefeituraSaoDomingosCapim.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/MonardMaia/PrefeituraSaoDomingosCapim/issues"
-  },
-  "homepage": "https://github.com/MonardMaia/PrefeituraSaoDomingosCapim#readme",
-  "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^5.2.1",
-    "mssql": "^12.5.0"
+  "devDependencies": {
+    "node-windows": "^1.0.0-beta.8"
   }
 }

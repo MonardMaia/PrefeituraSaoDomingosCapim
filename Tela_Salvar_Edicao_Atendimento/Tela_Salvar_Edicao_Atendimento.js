@@ -37,7 +37,7 @@ async function salvar() {
 
     try {
 
-        const resposta = await fetch("http://localhost:3000/visitantes", {
+        const resposta = await fetch("http://192.168.1.108:3000/visitantes", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -47,7 +47,7 @@ async function salvar() {
 
         if (!resposta.ok) {
             const erro = await resposta.text();
-            alert("❌ Erro: " + erro);
+            alert("❌ : " + erro);
             return;
         }
 
