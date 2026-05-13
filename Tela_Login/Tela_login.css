@@ -99,3 +99,48 @@ button:hover {
 
     display: block;/* Remove espaços indesejados abaixo da imagem (comportamento padrão de img é inline) */
 }
+
+.alerta-style {
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    width: 320px;
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    padding: 18px 20px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.15),
+        0 2px 6px rgba(0,0,0,0.10);
+
+    font-family: roboto, sans-serif;
+
+    color: #202124;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    z-index: 9999;
+
+    opacity: 0;
+
+    transform: translateY(-15px);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+
+    pointer-events: none;
+}
+
+/* Quando aparece */
+.alerta-style.show {
+    opacity: 1;
+    transform: translateY(0);
+}

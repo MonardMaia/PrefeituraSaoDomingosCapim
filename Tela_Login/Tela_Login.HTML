@@ -22,17 +22,14 @@
             <input type="password" placeholder="Senha do Usuário" id="senha">
 
             <div class="links">
-                <a href="#">Esqueci minha senha</a>
-                <a href="#">Solicitar cadastro</a>
+                <a href="#" onclick="mostrarMensagem(event, 'senha')">Esqueci minha senha</a>
+                <a href="#" onclick="mostrarMensagem(event, 'cadastro')">Solicitar cadastro</a>
             </div>
-
             <button onclick="acessar()">Acessar</button>
-
         </div>
     </div>
+     <div id="alerta" class="alerta-style"></div>
 
-
-</body>
 <footer>
     <div class="rodape">
         <img src="../Imagens/Rodape.jpeg">

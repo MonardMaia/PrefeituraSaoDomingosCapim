@@ -37,15 +37,51 @@ async function acessar() {
 }
 // Função para mostrar mensagens de alerta
 function mostrarMensagem(event, tipo) {
-    // Evita que o link '#' recarregue a página ou suba o scroll
+
     event.preventDefault();
+
     const alerta = document.getElementById("alerta");
-    if (tipo == "senha") {
-        alerta.innerHTML = "🔑 <strong>Recuperação de senha:</strong><br>Entre em contato com TI:<br>suporteticapim2026@gmail.com";
-    } else if (tipo == "cadastro") {
-        alerta.innerHTML = "📧 <strong>Solicitação de cadastro:</strong><br>Enviar e-mail para TI:<br>suporteticapim2026@gmail.com";
+
+    if (!alerta) {
+        console.error("Elemento #alerta não encontrado!");
+        return;
     }
+
+    if (tipo === "senha") {
+
+        alerta.innerHTML = `
+            <div style="font-size:18px; margin-bottom:10px;">
+                🔑 <strong>Recuperação de senha</strong>
+            </div>
+
+            <div>
+                Envie um e-mail para o setor de Ti, solicitando uma nova senha:
+            </div>
+
+            <div style="margin-top:10px; color:#4CAF00;">
+                suporteticapim2026@gmail.com
+            </div>
+        `;
+
+    } else if (tipo === "cadastro") {
+
+        alerta.innerHTML = `
+            <div style="font-size:18px; margin-bottom:10px;">
+                📧 <strong>Solicitação de cadastro</strong>
+            </div>
+
+            <div>
+                Envie um e-mail para o setor de Ti, solicitando uma novo cadastro:
+            </div>
+
+            <div style="margin-top:10px; color:#4CAF00;">
+                suporteticapim2026@gmail.com
+            </div>
+        `;
+    }
+
     alerta.classList.add("show");
+
     setTimeout(() => {
         alerta.classList.remove("show");
     }, 5000);

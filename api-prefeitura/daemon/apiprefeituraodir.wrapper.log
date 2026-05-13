@@ -26,3 +26,9 @@
 2026-05-08 19:12:50 - Started 5720
 2026-05-09 15:36:16 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\Admin\Documents\Projeto_Site_Prefeitura_Odir\api-prefeitura\node_modules\node-windows\lib\wrapper.js --file C:\Users\Admin\Documents\Projeto_Site_Prefeitura_Odir\api-prefeitura\index.js --scriptoptions= --log "API Prefeitura Odir wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
 2026-05-09 15:36:16 - Started 6044
+2026-05-10 10:14:22 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\Admin\Documents\Projeto_Site_Prefeitura_Odir\api-prefeitura\node_modules\node-windows\lib\wrapper.js --file C:\Users\Admin\Documents\Projeto_Site_Prefeitura_Odir\api-prefeitura\index.js --scriptoptions= --log "API Prefeitura Odir wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2026-05-10 10:14:23 - Started 5824
+2026-05-11 09:14:04 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\Admin\Documents\Projeto_Site_Prefeitura_Odir\api-prefeitura\node_modules\node-windows\lib\wrapper.js --file C:\Users\Admin\Documents\Projeto_Site_Prefeitura_Odir\api-prefeitura\index.js --scriptoptions= --log "API Prefeitura Odir wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2026-05-11 09:14:04 - Started 6140
+2026-05-11 16:09:10 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\Admin\Documents\Projeto_Site_Prefeitura_Odir\api-prefeitura\node_modules\node-windows\lib\wrapper.js --file C:\Users\Admin\Documents\Projeto_Site_Prefeitura_Odir\api-prefeitura\index.js --scriptoptions= --log "API Prefeitura Odir wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2026-05-11 16:09:10 - Started 4488
